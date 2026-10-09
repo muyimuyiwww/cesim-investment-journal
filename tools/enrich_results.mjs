@@ -37,9 +37,9 @@ sheet.getRange(`A7:I${6 + forecastRows.length}`).values = forecastRows;
 const macroTitleRow = 9 + forecastRows.length;
 const macroHeaderRow = macroTitleRow + 2;
 const macroStartRow = macroHeaderRow + 1;
-sheet.getRange(`A${macroTitleRow}:I${macroTitleRow}`).values = [['经济基本面情景：网站给出的当期预期，独立记录', '', '', '', '', '', '', '', '']];
-sheet.getRange(`A${macroHeaderRow}:I${macroHeaderRow}`).values = [['指标', '地区或币种', '单位', '该回合网站预期', '下回合页面“上季度”', '差异', '口径', '补录日', '数据来源']];
-const macroRows = macro.rows.map(r => [r[0], r[1], r[2], r[3], Number.isFinite(r[4]) ? r[4] : null, Number.isFinite(r[4]) ? +(r[4] - r[3]).toFixed(2) : null, '情景核对；上季度列不是实现值', macro.captured_at ?? outlook.captured_at ?? '', 'Cesim 经济展望：经济基本面']);
+sheet.getRange(`A${macroTitleRow}:I${macroTitleRow}`).values = [['经济基本面：两个回合的网站预期并列，均非实际结果', '', '', '', '', '', '', '', '']];
+sheet.getRange(`A${macroHeaderRow}:I${macroHeaderRow}`).values = [['指标', '地区或币种', '单位', `回合${outlook.round}网站预期`, `回合${outlook.round + 1}网站预期`, '预期变化', '口径', '补录日', '数据来源']];
+const macroRows = macro.rows.map(r => [r[0], r[1], r[2], r[3], Number.isFinite(r[4]) ? r[4] : null, Number.isFinite(r[4]) ? +(r[4] - r[3]).toFixed(2) : null, '跨回合情景变化；非实现误差', macro.captured_at ?? outlook.captured_at ?? '', 'Cesim 经济展望：经济基本面']);
 sheet.getRange(`A${macroStartRow}:I${macroStartRow + macroRows.length - 1}`).values = macroRows;
 
 const noteRow = macroStartRow + macroRows.length + 2;
